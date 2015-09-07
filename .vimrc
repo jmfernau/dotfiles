@@ -61,7 +61,7 @@ set laststatus=2 " always show status bar
 set statusline=%f\ %=L:%l/%L\ %c\ (%p%%) " set status line to something useful
 set guioptions-=T " hide the toolbar
 set autoread " autoload files that have changed outside of vim
-set clipboard+=unamed " use system clipboard
+set clipboard+=unnamed " use system clipboard
 set shortmess+=I " don't show intro
 set cursorline " highlight the current line
 set visualbell " ensure vim doesn't beep at you every time you make a mistype
