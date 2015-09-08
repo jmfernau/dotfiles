@@ -11,13 +11,15 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'motemen/git-vim'
+"Plugin 'motemen/git-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
+Plugin 'Powerline/powerline'
+"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
@@ -108,8 +110,8 @@ let g:rubycomplete_buffer_loading=0
 let g:rubycomplete_classes_in_global=1
 
 " always highlight column 80
-autocmd BufWinEnter * highlight ColorColumn ctermbg=gray
-set colorcolumn=80
+"autocmd BufWinEnter * highlight ColorColumn ctermbg=gray
+"set colorcolumn=80
 
 " CtrlP
 map <leader>t <C-p>
@@ -135,6 +137,15 @@ highlight clear SignColumn
 
 " Airline
 let g:airline_powerline_fonts=1
+
+" Powerline
+set guifont=Inconsolata\ for\ Powerline:h15
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
 
 " change the leader to a comma
 let mapleader=","
