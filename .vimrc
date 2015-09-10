@@ -148,10 +148,20 @@ set term=xterm-256color
 set termencoding=utf-8
 
 " change the leader to a comma
-let mapleader=","
+"let mapleader=","
+let mapleader="\<space>"
+
+" file management
+nnoremap <leader>o :NERDTreeToggle<cr>
+nnoremap <leader>w :w<cr>
+noremap <leader>e :e<space>
+nnoremap <leader>q :q<cr>
+nnoremap <leader>n :bn<cr>
+nnoremap <leader>p :bp<cr>
 
 " Searching the file system
 map <leader>' :NERDTreeToggle<cr>
+
 
 " make spltting windows easier
 map <leader>; <C-W>v
