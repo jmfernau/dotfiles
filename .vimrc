@@ -114,20 +114,18 @@ let g:rubycomplete_classes_in_global=1
 "set colorcolumn=80
 
 " CtrlP
-map <leader>t <C-p>
-map <leader>y :CtrlPBuffer<cr>
-let g:ctrlp_show_hidden=1
-let g:ctrlp_working_path_mod=0
-let g:ctrlp_max_height=30
+"let g:ctrlp_show_hidden=1
+"let g:ctrlp_working_path_mod=0
+"let g:ctrlp_max_height=30
 
 " CtrlP -> override <C-o> to provide options for how to open files
-let g:ctrlp_arg_map=1
+"let g:ctrlp_arg_map=1
 
 " CtrlP -> files matched are ignored when expanding wildcards
 set wildignore+=*/.git*,*/.hg/*,*/.svn/*.,*/.DS_Store
 
 " CtrlP -> directories to ignore when fuzzy finding
-let g:ctrlp_user_command='\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))$'
+"let g:ctrlp_user_command='\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))$'
 
 " Git gutter
 let g:gitgutter_enabled=1
@@ -174,6 +172,7 @@ imap jj <Esc>
 map <leader>yt :ls<cr>
 map <leader>yd :bufdo bd<cr>
 
-
+" remove trailing whitespace
+autocmd BufWritePre * :%s/\s\+$//e
 
 
