@@ -150,7 +150,7 @@ set termencoding=utf-8
 let mapleader="\<space>"
 
 " file management
-nnoremap <leader>o :NERDTreeToggle<cr>
+nnoremap <leader>o :CtrlP<cr>
 nnoremap <leader>w :w<cr>
 noremap <leader>e :e<space>
 nnoremap <leader>q :q<cr>
