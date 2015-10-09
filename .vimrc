@@ -19,6 +19,12 @@ Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Plugin 'Powerline/powerline'
+Plugin 'tpope/vim-markdown'
+Plugin 'slava/vim-spacebars'
+Plugin 'othree/html5.vim'
+Plugin 'othree/jsdoc-syntax.vim'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'digitaltoad/vim-jade'
 "Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "Plugin 'Valloric/YouCompleteMe'
 
