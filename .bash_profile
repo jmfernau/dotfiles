@@ -13,18 +13,22 @@ export ORACLE_HOME=/opt/oracle/instantclient_11_2
 #export https_proxy=http://www-proxy.us.oracle.com:80
 
 alias mysql="mysql -S /tmp/mysql.sock"
+alias be="bundle exec"
+alias bu="bundle"
+alias g="git"
+alias v="vim"
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-if [[ -s "/$MY_HOME/Scripts/git-completion.bash" ]]; then  
-   source "/$MY_HOME/Scripts/git-completion.bash" 
+if [[ -s "/$MY_HOME/Scripts/git-completion.bash" ]]; then
+   source "/$MY_HOME/Scripts/git-completion.bash"
 fi
 GIT_PS1_SHOWDIRTYSTATE=true
 
-if [[ -s "/$MY_HOME/Scripts/git-prompt.sh" ]]; then 
-   source "/$MY_HOME/Scripts/git-prompt.sh" 
+if [[ -s "/$MY_HOME/Scripts/git-prompt.sh" ]]; then
+   source "/$MY_HOME/Scripts/git-prompt.sh"
 fi
 
 #PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
