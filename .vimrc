@@ -25,6 +25,8 @@ Plugin 'othree/html5.vim'
 Plugin 'othree/jsdoc-syntax.vim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'digitaltoad/vim-jade'
+Plugin 'tpope/vim-endwise'
+Plugin 'jiangmiao/auto-pairs'
 "Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "Plugin 'Valloric/YouCompleteMe'
 
