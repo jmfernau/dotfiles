@@ -178,6 +178,11 @@ nnoremap <leader>p :bp<cr>
 " Searching the file system
 map <leader>' :NERDTreeToggle<cr>
 
+" Navigation for splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " make spltting windows easier
 map <leader>; <C-W>v
