@@ -19,7 +19,6 @@ Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
-"Plugin 'Powerline/powerline'
 Plugin 'tpope/vim-markdown'
 Plugin 'slava/vim-spacebars'
 Plugin 'othree/html5.vim'
@@ -35,6 +34,7 @@ Plugin 'jlanzarotta/bufexplorer'
 Plugin 'stephpy/vim-yaml'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimfiler.vim'
+Plugin 'rking/ag.vim'
 "Plugin 'vim-scripts/bufexplorer.zip'
 
 
@@ -119,6 +119,9 @@ set nowrap
 
 set tags=./tags
 
+" Ag
+let g:ag_working_path_mode="r"
+
 " Folding
 set foldcolumn=0
 set foldmethod=indent
@@ -162,8 +165,11 @@ let g:gitgutter_sign_column_always=1
 highlight clear SignColumn
 
 " Airline
-"let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = ' '
+
 let g:airline_theme = 'dark'
 
 
@@ -208,9 +214,9 @@ let g:syntastic_style_warning_symbol = "⇢"
 let g:syntastic_stl_format = ' [%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop', 'rubylint']
 let g:syntastic_javascript_checkers = ['jsxhint', 'eslint']
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 " change the leader to a comma
 "let mapleader=","
@@ -228,17 +234,14 @@ nnoremap <leader>p :bp<cr>
 map <leader>' :NERDTreeToggle<cr>
 
 " Navigation for splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <C-h> <C-w><C-w>
 
 " make spltting windows easier
 map <leader>; <C-W>v
 map <leader>` <C-W>s
 
 " map jj to the escape key
-imap jj <Esc>
+:inoremap jj <Esc>
 
 " map buffer commands
 map <leader>yt :ls<cr>
@@ -280,5 +283,4 @@ let g:vimfiler_tree_opened_icon = '▾'
 let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
-
 
