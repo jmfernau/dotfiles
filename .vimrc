@@ -1,3 +1,4 @@
+autocmd!
 set nocompatible
 filetype off
 " set the runtime path to include Vundle and initialize
@@ -11,7 +12,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-"Plugin 'motemen/git-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/nerdcommenter'
@@ -19,7 +19,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
-Plugin 'Powerline/powerline'
+"Plugin 'Powerline/powerline'
 Plugin 'tpope/vim-markdown'
 Plugin 'slava/vim-spacebars'
 Plugin 'othree/html5.vim'
@@ -31,8 +31,12 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'pangloss/vim-javascript'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'mxw/vim-jsx'
-"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'stephpy/vim-yaml'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/vimfiler.vim'
+"Plugin 'vim-scripts/bufexplorer.zip'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -48,8 +52,11 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+set t_Co=256
+set term=xterm-256color
 syntax on
-colorscheme distinguished
+syntax sync fromstart
+colorscheme Tomorrow-Night
 
 set hlsearch "highlight the search
 " set ls=2 " show a status line even if there is only one window
@@ -71,8 +78,6 @@ set noswapfile	" no swap files
 set hidden	" hide buffers when abandoned
 set ruler " always show cursor
 set showcmd " show incomplete commands
-set laststatus=2 " always show status bar
-set statusline=%f\ %=L:%l/%L\ %c\ (%p%%) " set status line to something useful
 set guioptions-=T " hide the toolbar
 set autoread " autoload files that have changed outside of vim
 set clipboard+=unnamed " use system clipboard
@@ -80,6 +85,10 @@ set shortmess+=I " don't show intro
 set cursorline " highlight the current line
 set visualbell " ensure vim doesn't beep at you every time you make a mistype
 set showmatch " highlight matching brackets when cursor is placed on start/end
+
+" Status line
+set laststatus=2 " always show status bar
+"set statusline=%f\ %=L:%l/%L\ %c\ (%p%%) " set status line to something useful
 
 " Time out on key codes but not mappings
 set notimeout
@@ -121,23 +130,30 @@ set ofu=syntaxcomplete#Complete
 let g:rubycomplete_buffer_loading=0
 let g:rubycomplete_classes_in_global=1
 
-" always highlight column 80
-"autocmd BufWinEnter * highlight ColorColumn ctermbg=gray
-"set colorcolumn=80
-
-" CtrlP
-"let g:ctrlp_show_hidden=1
-"let g:ctrlp_working_path_mod=0
-"let g:ctrlp_max_height=30
-
-" CtrlP -> override <C-o> to provide options for how to open files
-"let g:ctrlp_arg_map=1
-
 " CtrlP -> files matched are ignored when expanding wildcards
-set wildignore+=*/.git*,*/.hg/*,*/.svn/*.,*/.DS_Store
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*.,*/.DS_Store,*/tmp/*,*.so,*.sqp,*.zip
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+set wildignore+=*.gif,*.jpg,*.png
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
+set wildignore+=node_modules/*
+set wildignore+=*.swp,*~,._*
+set wildignore+=.DS_Store
 
 " CtrlP -> directories to ignore when fuzzy finding
-"let g:ctrlp_user_command='\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))$'
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '^\.git\|node_modules\|bin\|^\.hg\|\.svn\|build\|log\|resources\|coverage\|doc\|tmp\|public/assets\|vendor\|Android',
+      \ 'file': '\.jpg$\|\.png$\|\.exe$\|\.so$\|tags$\|\.dll$'
+      \}
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_max_files = 0
+let g:ctrlp_mruf_max = 500
+let g:ctrlp_mruf_relative = 1
+let g:ctrlp_buftag_ctags_bin = '/usr/local/bin/ctags'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20'
+
 
 " Git gutter
 let g:gitgutter_enabled=1
@@ -146,22 +162,55 @@ let g:gitgutter_sign_column_always=1
 highlight clear SignColumn
 
 " Airline
-let g:airline_powerline_fonts=1
+"let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline_theme = 'dark'
+
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
 
 " Powerline
-set guifont=Inconsolata\ for\ Powerline:h15
-let g:Powerline_symbols = 'fancy'
-set encoding=utf-8
-set t_Co=256
-set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
-set termencoding=utf-8
+"set guifont=Inconsolata\ for\ Powerline:h15
+"let g:Powerline_symbols = 'fancy'
+"set encoding=utf-8
+"set fillchars+=stl:\ ,stlnc:\
+"set termencoding=utf-8
 
 " vim-jsx
 let g:jsx_ext_required = 0
 
 "syntastic
-let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_error_symbol = "➠"
+let g:syntastic_warning_symbol = "⇢"
+let g:syntastic_style_error_symbol = "➠"
+let g:syntastic_style_warning_symbol = "⇢"
+let g:syntastic_stl_format = ' [%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+let g:syntastic_ruby_checkers = ['mri', 'rubocop', 'rubylint']
+let g:syntastic_javascript_checkers = ['jsxhint', 'eslint']
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 " change the leader to a comma
 "let mapleader=","
@@ -195,6 +244,41 @@ imap jj <Esc>
 map <leader>yt :ls<cr>
 map <leader>yd :bufdo bd<cr>
 
+" remove search highlighting
+nnoremap <leader>hh :noh<cr>
+
+nnoremap Q <nop>
+nnoremap <leader><leader> :b#<cr>
+nnoremap <leader>V :e $MYVIMRC<cr>
+
 " remove trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+set synmaxcol=1200
+set nojoinspaces
+set nostartofline
+autocmd FileType css,scss set iskeyword=@,48-57,_,-,?,!,192-255
+autocmd FileType eruby set iskeyword=@,48-57,_,192-255,$,-
+
+" Make the debugger statements obvious
+au BufEnter *.rb syn match error contained "\<binding.pry\>"
+au BufEnter *.rb syn match error contained "\<debugger\>"
+
+" VimFiler
+map <leader>f :VimFilerExplorer -simple -find -winwidth=45 -toggle -no-quit -buffer-name=explorer -split<CR>
+"nnoremap <leader>n :VimFiler -buffer-name=explorer -split -simple -winwidth=45 -toggle -no-quit<CR>
+call vimfiler#custom#profile('default', 'context', {
+      \ 'safe' : 0,
+      \
+      \})
+let g:vimfiler_as_default_explorer = 1
+" Textmate Icons
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+
 
