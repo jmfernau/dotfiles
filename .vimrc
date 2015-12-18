@@ -13,7 +13,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+"Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
@@ -35,7 +35,6 @@ Plugin 'stephpy/vim-yaml'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimfiler.vim'
 Plugin 'rking/ag.vim'
-"Plugin 'vim-scripts/bufexplorer.zip'
 
 
 " All of your Plugins must be added before the following line
@@ -57,6 +56,10 @@ set term=xterm-256color
 syntax on
 syntax sync fromstart
 colorscheme Tomorrow-Night
+
+" change the leader to a comma
+"let mapleader=","
+let mapleader="\<space>"
 
 set hlsearch "highlight the search
 " set ls=2 " show a status line even if there is only one window
@@ -192,18 +195,18 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
 
-" Powerline
-"set guifont=Inconsolata\ for\ Powerline:h15
-"let g:Powerline_symbols = 'fancy'
-"set encoding=utf-8
-"set fillchars+=stl:\ ,stlnc:\
-"set termencoding=utf-8
+" NERDTree
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeRespectWildIgnore = 1
+let g:NERDTreeMapActivateNode = 'l'
+map <leader>' :NERDTreeToggle<cr>
+map <leader>f :NERDTreeToggle<cr>
 
 " vim-jsx
 let g:jsx_ext_required = 0
 
 "syntastic
-"let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_aggregate_errors = 1
@@ -213,14 +216,11 @@ let g:syntastic_style_error_symbol = "➠"
 let g:syntastic_style_warning_symbol = "⇢"
 let g:syntastic_stl_format = ' [%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop', 'rubylint']
-let g:syntastic_javascript_checkers = ['jsxhint', 'eslint']
+let g:syntastic_javascript_checkers = ['eslint']
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-" change the leader to a comma
-"let mapleader=","
-let mapleader="\<space>"
 
 " file management
 nnoremap <leader>o :CtrlP<cr>
@@ -231,7 +231,6 @@ nnoremap <leader>n :bn<cr>
 nnoremap <leader>p :bp<cr>
 
 " Searching the file system
-map <leader>' :NERDTreeToggle<cr>
 
 " Navigation for splits
 nnoremap <C-h> <C-w><C-w>
@@ -270,17 +269,17 @@ au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
 
 " VimFiler
-map <leader>f :VimFilerExplorer -simple -find -winwidth=45 -toggle -no-quit -buffer-name=explorer -split<CR>
+"map <leader>f :VimFilerExplorer -simple -find -winwidth=45 -toggle -no-quit -buffer-name=explorer -split<CR>
 "nnoremap <leader>n :VimFiler -buffer-name=explorer -split -simple -winwidth=45 -toggle -no-quit<CR>
-call vimfiler#custom#profile('default', 'context', {
-      \ 'safe' : 0,
-      \
-      \})
-let g:vimfiler_as_default_explorer = 1
-" Textmate Icons
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
+"call vimfiler#custom#profile('default', 'context', {
+      "\ 'safe' : 0,
+      "\
+      "\})
+"let g:vimfiler_as_default_explorer = 1
+"" Textmate Icons
+"let g:vimfiler_tree_leaf_icon = ' '
+"let g:vimfiler_tree_opened_icon = '▾'
+"let g:vimfiler_tree_closed_icon = '▸'
+"let g:vimfiler_file_icon = '-'
+"let g:vimfiler_marked_file_icon = '*'
 
