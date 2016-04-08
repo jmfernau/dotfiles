@@ -200,6 +200,7 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeRespectWildIgnore = 1
 let g:NERDTreeMapActivateNode = 'l'
+let g:NERDTreeQuitOnOpen = 1
 map <leader>' :NERDTreeToggle<cr>
 map <leader>f :NERDTreeToggle<cr>
 
