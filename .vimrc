@@ -149,7 +149,7 @@ set wildignore+=.DS_Store
 
 " CtrlP -> directories to ignore when fuzzy finding
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '^\.git\|node_modules\|bin\|^\.hg\|\.svn\|build\|log\|resources\|coverage\|doc\|tmp\|public/assets\|vendor\|Android',
+      \ 'dir':  '^\.git\|node_modules\|bin\|^\.hg\|\.svn\|build\|log\|coverage\|doc\|tmp\|public/assets\|vendor\|Android',
       \ 'file': '\.jpg$\|\.png$\|\.exe$\|\.so$\|tags$\|\.dll$'
       \}
 let g:ctrlp_switch_buffer = 0
@@ -269,6 +269,7 @@ autocmd FileType eruby set iskeyword=@,48-57,_,192-255,$,-
 " Make the debugger statements obvious
 au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
+au BufReadPost *.njk set filetype=html
 
 " VimFiler
 "map <leader>f :VimFilerExplorer -simple -find -winwidth=45 -toggle -no-quit -buffer-name=explorer -split<CR>
