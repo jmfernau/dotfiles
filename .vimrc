@@ -165,6 +165,7 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20'
 let g:gitgutter_enabled=1
 let g:gitgutter_eager=0
 let g:gitgutter_sign_column_always=1
+let g:gitgutter_realtime=0
 highlight clear SignColumn
 
 " Airline
