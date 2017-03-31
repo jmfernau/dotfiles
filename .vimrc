@@ -1,3 +1,4 @@
+set encoding=utf-8
 autocmd!
 set nocompatible
 filetype off
