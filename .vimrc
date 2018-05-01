@@ -14,7 +14,6 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
@@ -25,7 +24,7 @@ Plugin 'slava/vim-spacebars'
 Plugin 'othree/html5.vim'
 Plugin 'othree/jsdoc-syntax.vim'
 Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'digitaltoad/vim-jade'
+Plugin 'digitaltoad/vim-pug'
 Plugin 'tpope/vim-endwise'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'pangloss/vim-javascript'
@@ -36,6 +35,8 @@ Plugin 'stephpy/vim-yaml'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimfiler.vim'
 Plugin 'rking/ag.vim'
+Plugin 'posva/vim-vue'
+Plugin 'cakebaker/scss-syntax.vim'
 
 
 " All of your Plugins must be added before the following line
@@ -165,7 +166,7 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20'
 " Git gutter
 let g:gitgutter_enabled=1
 let g:gitgutter_eager=0
-let g:gitgutter_sign_column_always=1
+set signcolumn=yes
 let g:gitgutter_realtime=0
 highlight clear SignColumn
 
