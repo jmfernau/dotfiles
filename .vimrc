@@ -32,11 +32,22 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'mxw/vim-jsx'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'stephpy/vim-yaml'
-Plugin 'Shougo/unite.vim'
+"Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimfiler.vim'
 Plugin 'rking/ag.vim'
 Plugin 'posva/vim-vue'
 Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'nvie/vim-flake8'
+" Java Plugins
+"if has('nvim')
+  "Plugin 'shougo/denite.nvim'
+  "" after install of vim proc, you need to run:  cd ~/.vim/bundle/vimproc.vim && make
+  "Plugin 'shougo/vimproc.vim'
+  "Plugin 'artur-shaik/vim-javacomplete2'
+  "Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  "Plugin 'sbdchd/neoformat'
+  "Plugin 'neomake/neomake'
+"endif
 
 
 " All of your Plugins must be added before the following line
@@ -54,10 +65,12 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 set t_Co=256
-set term=xterm-256color
 syntax on
 syntax sync fromstart
 colorscheme Tomorrow-Night
+if !has('nvim')
+  set term=xterm-256color
+endif
 
 " change the leader to a comma
 "let mapleader=","
@@ -68,8 +81,10 @@ set hlsearch "highlight the search
 
 " Improve vim's scrolling speed
 set ttyfast
-set ttyscroll=3
 set lazyredraw
+if !has('nvim')
+  set ttyscroll=3
+endif
 
 set wildmenu	" show completion on the mode-line
 set linespace=0	" number of pixels between lines
@@ -221,6 +236,8 @@ let g:syntastic_style_warning_symbol = "⇢"
 let g:syntastic_stl_format = ' [%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop', 'rubylint']
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_java_checkers = ['java']
+let g:syntastic_python_checkers = ['flake8']
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -273,18 +290,40 @@ au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
 au BufReadPost *.njk set filetype=html
 
-" VimFiler
-"map <leader>f :VimFilerExplorer -simple -find -winwidth=45 -toggle -no-quit -buffer-name=explorer -split<CR>
-"nnoremap <leader>n :VimFiler -buffer-name=explorer -split -simple -winwidth=45 -toggle -no-quit<CR>
-"call vimfiler#custom#profile('default', 'context', {
-      "\ 'safe' : 0,
-      "\
-      "\})
-"let g:vimfiler_as_default_explorer = 1
-"" Textmate Icons
-"let g:vimfiler_tree_leaf_icon = ' '
-"let g:vimfiler_tree_opened_icon = '▾'
-"let g:vimfiler_tree_closed_icon = '▸'
-"let g:vimfiler_file_icon = '-'
-"let g:vimfiler_marked_file_icon = '*'
+" Java stuff
+"
+"""""""""""""""""""""""""
+""""    deoplete     """"
+"""""""""""""""""""""""""
+"let g:deoplete#enable_at_startup = 1
+"let g:deoplete#omni_patterns = {}
+"let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
+"let g:deoplete#sources = {}
+"let g:deoplete#sources._ = []
+"let g:deoplete#file#enable_buffer_path = 1
 
+"""""""""""""""""""""""""
+""""  Java Complete  """"
+"""""""""""""""""""""""""
+"autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+"""""""""""""""""""""""""
+""""     neomake     """"
+"""""""""""""""""""""""""
+"autocmd! BufWritePost,BufEnter * Neomake
+"" Disable inherited syntastic
+"let g:syntastic_mode_map = {
+  "\ "mode": "passive",
+  "\ "active_filetypes": [],
+  "\ "passive_filetypes": [] }
+
+"let g:neomake_serialize = 1
+"let g:neomake_serialize_abort_on_error = 1
+
+"""""""""""""""""""""""""
+""""     neoformat   """"
+"""""""""""""""""""""""""
+"augroup astyle
+  "autocmd!
+  "autocmd BufWritePre * Neoformat
+"augroup END

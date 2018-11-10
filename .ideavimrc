@@ -1,0 +1,37 @@
+source ~/.vimrc
+
+
+set ignorecase
+set smartcase
+set scrolloff=3         " 3 lines above/below cursor when scrolling
+
+" Integrate with system clipboard
+set clipboard=unnamedplus,unnamed
+
+let mapleader = " "
+
+" key bindings for quickly moving between windows
+" h left, l right, k up, j down
+nmap <leader>h <c-w>h
+nmap <leader>l <c-w>l
+nmap <leader>k <c-w>k
+nmap <leader>j <c-w>j
+
+nmap g] :action GotoImplementation<CR>
+nmap <leader>g :action GotoDeclaration<cr>
+nmap <leader>b :action Back<cr>
+nmap <leader>f :action Forward<cr>
+
+nmap <leader>o :action GotoFile<cr>
+nmap <leader>c :action GotoClass<cr>
+"nmap <leader>ns :action GotoSymbol<cr>
+"nmap <leader>nm :action FileStructurePopup<cr>
+nmap <leader>d :action ShowErrorDescription<cr>
+nmap <leader>n :action NextTab<cr>
+nmap <leader>p :action PreviousTab<cr>
+nmap <leader>w :action SaveDocument<cr>
+
+" Won't work in visual mode (with vmap) for some reason.
+" Use default map of <c-/> for that.
+nmap <leader>c<leader> :action CommentByLineComment<cr>
+nmap gcc :action CommentByLineComment<cr>
