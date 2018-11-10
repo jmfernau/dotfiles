@@ -32,13 +32,23 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'mxw/vim-jsx'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'stephpy/vim-yaml'
-Plugin 'Shougo/unite.vim'
+"Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimfiler.vim'
 Plugin 'rking/ag.vim'
 Plugin 'posva/vim-vue'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'vim-scripts/indentpython.vim'
+" Java Plugins
+"if has('nvim')
+  "Plugin 'shougo/denite.nvim'
+  "" after install of vim proc, you need to run:  cd ~/.vim/bundle/vimproc.vim && make
+  "Plugin 'shougo/vimproc.vim'
+  "Plugin 'artur-shaik/vim-javacomplete2'
+  "Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  "Plugin 'sbdchd/neoformat'
+  "Plugin 'neomake/neomake'
+"endif
 
 
 " All of your Plugins must be added before the following line
@@ -56,10 +66,12 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 set t_Co=256
-set term=xterm-256color
 syntax on
 syntax sync fromstart
 colorscheme Tomorrow-Night
+if !has('nvim')
+  set term=xterm-256color
+endif
 
 " change the leader to a comma
 "let mapleader=","
@@ -70,8 +82,10 @@ set hlsearch "highlight the search
 
 " Improve vim's scrolling speed
 set ttyfast
-set ttyscroll=3
 set lazyredraw
+if !has('nvim')
+  set ttyscroll=3
+endif
 
 set wildmenu	" show completion on the mode-line
 set linespace=0	" number of pixels between lines
@@ -288,3 +302,40 @@ au BufNewFile,BufRead *.py
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
+" Java stuff
+"
+"""""""""""""""""""""""""
+""""    deoplete     """"
+"""""""""""""""""""""""""
+"let g:deoplete#enable_at_startup = 1
+"let g:deoplete#omni_patterns = {}
+"let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
+"let g:deoplete#sources = {}
+"let g:deoplete#sources._ = []
+"let g:deoplete#file#enable_buffer_path = 1
+
+"""""""""""""""""""""""""
+""""  Java Complete  """"
+"""""""""""""""""""""""""
+"autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+"""""""""""""""""""""""""
+""""     neomake     """"
+"""""""""""""""""""""""""
+"autocmd! BufWritePost,BufEnter * Neomake
+"" Disable inherited syntastic
+"let g:syntastic_mode_map = {
+  "\ "mode": "passive",
+  "\ "active_filetypes": [],
+  "\ "passive_filetypes": [] }
+
+"let g:neomake_serialize = 1
+"let g:neomake_serialize_abort_on_error = 1
+
+"""""""""""""""""""""""""
+""""     neoformat   """"
+"""""""""""""""""""""""""
+"augroup astyle
+  "autocmd!
+  "autocmd BufWritePre * Neoformat
+"augroup END

@@ -60,14 +60,23 @@ ZSH_THEME="sorin"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  mvn
 )
 
 source $ZSH/oh-my-zsh.sh
+
+echo "Loading user configuration...."
 
 # User configuration
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 
+#if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi # add autocomplete permanently to your zsh shell
+[ -d "$HOME/.kube" ] && source <(kubectl completion zsh)
+
+# oci client
+export PATH="/Users/jfernau/bin:$PATH"
+#[[ -e "/Users/jfernau/lib/oracle-cli/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/Users/jfernau/lib/oracle-cli/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -94,28 +103,102 @@ source /usr/local/share/chruby/auto.sh
 #
 # Example aliases
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias zshconfig="mate ~/.zshrc"
+alias zshconfig="vim ~/.zshrc"
 alias be="bundle exec"
 alias "check-pry"="$HOME/dotfiles/check-pry.sh"
-alias "docker-clean-images"="docker rmi $(docker images -f dangling=true -q)"
-alias "docker-clean-containers"="docker rm $(docker ps -a -f status=exited -q)"
+#alias "docker-clean-images"="docker rmi $(docker images -f dangling=true -q)"
+#alias "docker-clean-containers"="docker rm $(docker ps -a -f status=exited -q)"
 alias -s rb=vim # opens ruby files in vim
 alias -s js=vm  # opens javascript files in vim
 alias -g gp='| grep -i' # creates a global alias for grep
 
+if type nvim > /dev/null 2>&1; then
+  alias vim=vim
+  alias vi=nvim
+fi
+
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 
-export PATH=${PATH}:/usr/local/opt/mysql/bin
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home"
+export PATH=${PATH}:/usr/local/opt/mysql/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin
+export PATH="$PATH:$HOME/istio-1.0.0/bin"
+export PATH="/Users/jfernau/miniconda3/bin:$PATH"
 
 # Proxy Stuff
-export NO_PROXY="127.0.0.1,localhost,.oracle.com,artifacthub-tip.oraclecorp.com"
+export NO_PROXY="127.0.0.1,localhost,.oracle.com,artifacthub.oraclecorp.com,.oraclecloud.com"
 export PROXY_HOST="www-proxy.us.oracle.com"
 export PROXY_PORT=80
 export PROXY="$PROXY_HOST:$PROXY_PORT"
 export PROXY_URL="http://$PROXY"
 
-alias prox="export ALL_PROXY=$PROXY_URL && export HTTP_PROXY=$PROXY_URL && export HTTPS_PROXY=$PROXY_URL"
-alias np="unset ALL_PROXY && unset HTTP_PROXY && unset HTTPS_PROXY"
+# check for vpn running
+#if [ "0" == `ifconfig | grep tun1 | wc -l` ]; then
+  unset ALL_PROXY HTTP_PROXY HTTPS_PROXY http_proxy https_proxy all_proxy
+  echo "Proxy not set, to enable type 'prox' at the commang prompt ";
+#else
+  #export HTTP_PROXY=$PROXY_URL && export HTTPS_PROXY=$PROXY_URL
+  #export http_proxy=$PROXY_URL && export https_proxy=$PROXY_URL
+  #export no_proxy=$NO_PROXY
+  #echo "Proxy set to $PROXY_URL, to disable type 'np' at the command prompt";
+#fi
 
-export ALL_PROXY=$PROXY_URL && export HTTP_PROXY=$PROXY_URL && export HTTPS_PROXY=$PROXY_URL
+alias prox="export ALL_PROXY=$PROXY_URL && export HTTP_PROXY=$PROXY_URL && export HTTPS_PROXY=$PROXY_URL"
+alias np="unset ALL_PROXY HTTP_PROXY HTTPS_PROXY all_proxy http_proxy https_proxy"
+
+alias prp="pipenv run python"
+
+alias svim="vim -u ~/.SpaceVim/vimrc"
+
+#[ -d "$HOME/.kube" ] && alias k=kubectl
+
+#if [ -x "$(command -v minikube)" ]; then
+  #if [ "0" == `minikube status | grep Running | wc -l` ]; then
+    #echo "minikube not running...."
+    #echo 'Using local docker daemon.'
+  #else
+    #eval $(minikube docker-env)
+    #echo 'Using minikube docker daemon.'
+  #fi
+#fi
+
+# Modified "sorin" theme
+if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
+  MODE_INDICATOR="%{$fg_bold[red]%}❮%{$reset_color%}%{$fg[red]%}❮❮%{$reset_color%}"
+  local return_status="%{$fg[red]%}%(?..⏎)%{$reset_color%}"
+
+  PROMPT='%{$fg[cyan]%}%c$(git_prompt_info) %(!.%{$fg_bold[red]%}#.%{$fg_bold[green]%}❯)%{$reset_color%} '
+
+  ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[blue]%}%{$reset_color%}%{$fg[red]%}("
+  ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
+  ZSH_THEME_GIT_PROMPT_DIRTY=""
+  ZSH_THEME_GIT_PROMPT_CLEAN=""
+
+  RPROMPT='${return_status}$(git_prompt_status)%{$reset_color%}'
+
+  ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%} ✚"
+  ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[blue]%} ✹"
+  ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%} ✖"
+  ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%} ➜"
+  ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%} ═"
+  ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭"
+else
+  MODE_INDICATOR="❮❮❮"
+  local return_status="%(?::⏎)"
+
+  PROMPT='%c$(git_prompt_info) %(!.#.❯) '
+
+  ZSH_THEME_GIT_PROMPT_PREFIX=" git:"
+  ZSH_THEME_GIT_PROMPT_SUFFIX=""
+  ZSH_THEME_GIT_PROMPT_DIRTY=""
+  ZSH_THEME_GIT_PROMPT_CLEAN=""
+
+  RPROMPT='${return_status}$(git_prompt_status)'
+
+  ZSH_THEME_GIT_PROMPT_ADDED=" ✚"
+  ZSH_THEME_GIT_PROMPT_MODIFIED=" ✹"
+  ZSH_THEME_GIT_PROMPT_DELETED=" ✖"
+  ZSH_THEME_GIT_PROMPT_RENAMED=" ➜"
+  ZSH_THEME_GIT_PROMPT_UNMERGED=" ═"
+  ZSH_THEME_GIT_PROMPT_UNTRACKED=" ✭"
+fi
