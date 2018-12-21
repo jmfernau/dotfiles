@@ -15,7 +15,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
@@ -38,6 +38,7 @@ Plugin 'rking/ag.vim'
 Plugin 'posva/vim-vue'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'nvie/vim-flake8'
+Plugin 'vim-scripts/indentpython.vim'
 " Java Plugins
 "if has('nvim')
   "Plugin 'shougo/denite.nvim'
@@ -182,8 +183,12 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20'
 let g:gitgutter_enabled=1
 let g:gitgutter_eager=0
 let g:gitgutter_realtime=0
-highlight clear SignColumn
-set signcolumn=yes
+if exists('&signcolumn')
+  highlight clear SignColumn
+  set signcolumn=yes
+else
+  let g:gitgutter_sign_column_always = 1
+endif
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -219,6 +224,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeRespectWildIgnore = 1
 let g:NERDTreeMapActivateNode = 'l'
 let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeNodeDelimiter = "\t"
 map <leader>' :NERDTreeToggle<cr>
 map <leader>f :NERDTreeToggle<cr>
 
@@ -236,11 +242,14 @@ let g:syntastic_style_warning_symbol = "⇢"
 let g:syntastic_stl_format = ' [%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop', 'rubylint']
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_java_checkers = ['java']
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_java_checkers = ['']
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+let python_highlight_all=1
+syntax on
 
 
 " file management
@@ -290,6 +299,14 @@ au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
 au BufReadPost *.njk set filetype=html
 
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=120 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
 " Java stuff
 "
 """""""""""""""""""""""""
