@@ -1,0 +1,85 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH=/home/jfernau/.oh-my-zsh
+
+# Set the theme to load
+ZSH_THEME="robbyrussell"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  git
+  mvn
+)
+
+source $ZSH/oh-my-zsh.sh
+
+echo "Loading user configuration...."
+
+# User configuration
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+
+[ -d "$HOME/.kube" ] && source <(kubectl completion zsh)
+
+# oci client
+export PATH="/home/jfernau/bin:$PATH"
+
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+alias zshconfig="vim ~/.zshrc"
+alias be="bundle exec"
+alias "check-pry"="$HOME/dotfiles/check-pry.sh"
+alias -s rb=vim # opens ruby files in vim
+alias -s js=vm  # opens javascript files in vim
+alias -g gp='| grep -i' # creates a global alias for grep
+
+if type nvim > /dev/null 2>&1; then
+  alias vim=vim
+  alias vi=nvim
+fi
+
+if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type -f __init_nvm)" = function ]; then
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+	declare -a __node_commands=(nvm `find -L $NVM_DIR/versions/*/*/bin -type f -exec basename {} \; | sort -u`)
+	function __init_nvm() {
+		for i in "${__node_commands[@]}"; do unalias $i; done
+		. "$NVM_DIR"/nvm.sh
+		unset __node_commands
+		unset -f __init_nvm
+	}
+	for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+fi
+
+export PATH=${PATH}:/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/sbin
+
+# Proxy Stuff
+export NO_PROXY="127.0.0.1,localhost,.oraclecorp.com"
+export PROXY_HOST="www-proxy-hqdc.us.oracle.com"
+export PROXY_PORT=80
+export PROXY="$PROXY_HOST:$PROXY_PORT"
+export PROXY_URL="http://$PROXY"
+
+# unset all proxy variables by default
+unset ALL_PROXY HTTP_PROXY HTTPS_PROXY http_proxy https_proxy all_proxy
+echo "Proxy not set, to enable type 'prox' at the command prompt ";
+
+alias prox="export ALL_PROXY=$PROXY_URL && export HTTP_PROXY=$PROXY_URL && export HTTPS_PROXY=$PROXY_URL && NO_PROXY=$NO_PROXY"
+alias np="unset ALL_PROXY HTTP_PROXY HTTPS_PROXY all_proxy http_proxy https_proxy"
+
+alias prp="pipenv run python"
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/jfernau/.sdkman"
+[[ -s "/home/jfernau/.sdkman/bin/sdkman-init.sh" ]] && source "/home/jfernau/.sdkman/bin/sdkman-init.sh"
