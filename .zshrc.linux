@@ -61,7 +61,7 @@ if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type -f __init_nvm)" = function ]; then
 	for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
 fi
 
-export PATH=${PATH}:/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/sbin
+export PATH=${PATH}:/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin
 
 # Proxy Stuff
 export NO_PROXY="127.0.0.1,localhost,.oraclecorp.com"
