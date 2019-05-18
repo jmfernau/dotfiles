@@ -1,0 +1,91 @@
+{
+    "workbench.startupEditor": "newUntitledFile",
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before": ["j","j"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.leader": "<space>",
+    "vim.useCtrlKeys": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>","w"],
+            "commands": [
+                "workbench.action.files.save"
+            ]
+        },
+        {
+            "before": ["<leader>","b","d"],
+            "commands": [
+                "workbench.action.closeActiveEditor"
+            ]
+        },
+        {
+            "before": ["<leader>","c","<space>"],
+            "commands": [
+                "editor.action.commentLine"
+            ]
+        },
+        {
+            "before": ["<leader>","o"],
+            "commands": [
+                "workbench.action.quickOpen"
+            ]
+        },
+        {
+            "before": ["<leader>","f"],
+            "commands":[ 
+                "workbench.view.explorer"
+            ]
+        },
+        {
+            "before": ["<leader>","n"],
+            "commands":[
+                "workbench.action.nextEditor"
+            ]
+        },
+        {
+            "before": ["<leader>","p"],
+            "commands":[
+                "workbench.action.previousEditor"
+            ]
+        },
+        {
+            "before": ["<leader>", "b", "t"],
+            "commands": [
+                "workbench.action.openPreviousRecentlyUsedEditorInGroup"
+            ]
+        },
+    ],
+    "vim.handleKeys": {
+        "<C-p>": false
+    },
+    "editor.fontFamily": "Inconsolata, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 16,
+    "terminal.integrated.fontFamily": "inconsolata",
+    "terminal.integrated.fontSize": 16,
+    "window.openFilesInNewWindow": "on",
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>","c","<space>"],
+            "commands": [
+                "editor.action.commentLine",
+            ],
+        },
+        {
+            "before": ["<shift>",">"],
+            "commands": [
+                "editor.action.indentLines"
+            ],
+        },
+        {
+            "before": ["<shift>","<"],
+            "commands": [
+                "editor.action.outdentLines"
+            ],
+        },
+    ],
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.editor.enablePreview": false
+}

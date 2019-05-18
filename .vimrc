@@ -39,6 +39,8 @@ Plugin 'posva/vim-vue'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'vim-scripts/indentpython.vim'
+Plugin 'udalov/kotlin-vim'
+Plugin 'leafgarland/typescript-vim'
 " Java Plugins
 "if has('nvim')
   "Plugin 'shougo/denite.nvim'
