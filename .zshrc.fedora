@@ -25,6 +25,9 @@ source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 
 [ -d "$HOME/.kube" ] && source <(kubectl completion zsh)
+[ -d "$HOME/.kube" ] && alias kc=kubectl \
+  && alias kinfo="kubectl get no,po,svc,configmap -o wide" \
+  && alias klogs="kubectl logs -f"
 
 # oci client
 export PATH="/home/jfernau/bin:$PATH"
@@ -53,22 +56,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH=${PATH}:/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin
 
-# Proxy Stuff
-export NO_PROXY="127.0.0.1,localhost,.oraclecorp.com"
-export PROXY_HOST="www-proxy-hqdc.us.oracle.com"
-export PROXY_PORT=80
-export PROXY="$PROXY_HOST:$PROXY_PORT"
-export PROXY_URL="http://$PROXY"
-
-# unset all proxy variables by default
-unset ALL_PROXY HTTP_PROXY HTTPS_PROXY http_proxy https_proxy all_proxy
-echo "Proxy not set, to enable type 'prox' at the command prompt ";
-
-alias prox="export ALL_PROXY=$PROXY_URL && export HTTP_PROXY=$PROXY_URL && export HTTPS_PROXY=$PROXY_URL && NO_PROXY=$NO_PROXY"
-alias np="unset ALL_PROXY HTTP_PROXY HTTPS_PROXY all_proxy http_proxy https_proxy"
-
 alias prp="pipenv run python"
-
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/jfernau/.sdkman"
