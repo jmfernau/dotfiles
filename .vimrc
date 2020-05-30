@@ -309,6 +309,9 @@ au BufNewFile,BufRead *.py
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
+
+hi CursorLineNr cterm=bold
+
 " Java stuff
 "
 """""""""""""""""""""""""
