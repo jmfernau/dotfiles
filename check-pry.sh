@@ -1,1 +1,0 @@
-git grep --untracked "pry"
